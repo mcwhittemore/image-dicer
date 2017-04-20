@@ -1,8 +1,13 @@
-var triangle = require('./lib/triangle');
+var Triangle = require('./lib/triangle');
+var dividors = require('./lib/dividors');
 
-module.exports = function(img, minArea, minDistance) {
+module.exports = function(img, minArea) {
   var data = [];
-  var tris = [triangle(1, minArea, minDistance), triangle(0, minArea, minDistance)];
+  var tris = [
+    new Triangle(1, minArea),
+    new Triangle(0, minArea)
+  ];
+  var dividor = dividors(6, {x:0, y:0}, {x:img.shape[0], y:img.shape[1]}); 
   for (var x=0; x<img.shape[0]; x++) {
     for (var y=0; y<img.shape[1]; y++) {
       var pix = {
@@ -13,13 +18,29 @@ module.exports = function(img, minArea, minDistance) {
         y: y
       };
       data.push(pix);
-      if (x/y < 1) tris[0].add(pix);
-      else tris[1].add(pix);
+      var pos = dividor(pix) ? 1 : 0;
+      tris[pos].add(pix);
     }
   };
 
-  tris[0].divide();
-  tris[1].divide();
+  var done = 0;
+  var c = 0;
+  console.log('starting...');
+  while(tris.length) {
+    c++;
+    var t = tris.pop();
+    if (true) console.log(((100/data.length)*done).toFixed(2), tris.length);
+    var nx = t.divide();
+    nx.forEach(n => tris.push(n));
+    if (nx.length === 0) {
+      done += t.getLength();
+      var avg = t.getAvg();
+      t.paint(avg);
+    };
+
+    t = null;
+  }
+  console.log('ending...');
 
   for (var i=0; i<data.length; i++) {
     var pix = data[i];

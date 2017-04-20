@@ -10,6 +10,6 @@ runner().catch(err => { console.log(err); });
 
 async function runner() {
   var img = await open(input);
-  var out = tool(img);
+  var out = tool(img, 200, 6);
   await save(out, output);
 }

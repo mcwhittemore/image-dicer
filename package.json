@@ -2,5 +2,26 @@
   "dependencies": {
     "get-pixels": "^3.3.0",
     "save-pixels": "^2.3.4"
-  }
+  },
+  "name": "triangulate",
+  "description": "A simple tool to pixelate a photo in triangles rather than squares.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "triangulate": "bin/cli.js"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcwhittemore/triangulate.git"
+  },
+  "author": "Matthew Chase Whittemore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcwhittemore/triangulate/issues"
+  },
+  "homepage": "https://github.com/mcwhittemore/triangulate#readme"
 }

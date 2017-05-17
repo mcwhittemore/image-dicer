@@ -25,16 +25,19 @@ module.exports = function(img, size) {
 
   var numTris = 2;
   var polys = makePolys(points, data);
+  polys.sort(Polygon.sortFn);
   while (numTris < size) {
-    polys = updatePolys(polys, points);
-    console.log('num tris', polys.length);
     var start = now();
-    var outlier = polys.filter(p => p.getLength() > 100)
+    polys = updatePolys(polys, points);
+    var start = now();
+    var outlier = polys.slice(0, 10)
       .map(p => p.getOutlier(points))
       .reduce((m, p) => m.d > p.d ? m : p).p;
-    console.log('find outlier', (now()-start).toFixed(4));
+    if (outlier === undefined) break;
     points.push([outlier.x, outlier.y]);
     numTris = polys.length;
+    var total = now() - start;
+    console.log('num tris', polys.length, 'time', total.toFixed(4));
   }
 
   polys.forEach(p => p.paint(p.getAvg()));
@@ -55,7 +58,6 @@ function updatePolys(polys, points) {
     return m;
   }, {});
 
-  var start = now();
   var delaunay = new Delaunator(points);
   var triangles = delaunay.triangles;
   var oldPolys = [];
@@ -88,13 +90,9 @@ function updatePolys(polys, points) {
     }
   }
 
-  var total = now() - start;
-
   var all = oldPolys.concat(newPolys);
 
-  console.log('updatepoly', 'total', total.toFixed(4), 'num', all.length, 'per', (total/all.length).toFixed(4));
-
-  return oldPolys.concat(newPolys);
+  return all.sort(Polygon.sortFn);
 
 }
 

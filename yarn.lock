@@ -39,6 +39,10 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
+binary-search-bounds@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/binary-search-bounds/-/binary-search-bounds-1.0.0.tgz#323ca317e3f2a40f4244c7255f5384a5b207bb69"
+
 boom@2.x.x:
   version "2.10.1"
   resolved "https://registry.yarnpkg.com/boom/-/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"
@@ -91,6 +95,10 @@ data-uri-to-buffer@0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-0.0.3.tgz#18ae979a6a0ca994b0625853916d2662bbae0b1a"
 
+delaunator@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/delaunator/-/delaunator-1.0.0.tgz#70ed69b9663e040e5564db8d007383b19645226e"
+
 delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
@@ -120,6 +128,10 @@ form-data@~2.1.1:
     asynckit "^0.4.0"
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
+
+functional-red-black-tree@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
 get-pixels@^3.3.0:
   version "3.3.0"
@@ -184,6 +196,12 @@ http-signature@~1.1.0:
 inherits@~2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
+
+interval-tree-1d@^1.0.1:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/interval-tree-1d/-/interval-tree-1d-1.0.3.tgz#8fdbde02b6b2c7dbdead636bcbed8e08710d85c1"
+  dependencies:
+    binary-search-bounds "^1.0.0"
 
 iota-array@^1.0.0:
   version "1.0.0"
@@ -310,6 +328,19 @@ pngjs@^2.0.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-2.3.1.tgz#11d1e12b9cb64d63e30c143a330f4c1f567da85f"
 
+point-in-big-polygon@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/point-in-big-polygon/-/point-in-big-polygon-2.0.0.tgz#39b613ea6cf17d6b43e188f77f34c44c6b33ba55"
+  dependencies:
+    binary-search-bounds "^1.0.0"
+    interval-tree-1d "^1.0.1"
+    robust-orientation "^1.1.3"
+    slab-decomposition "^1.0.1"
+
+point-in-polygon@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/point-in-polygon/-/point-in-polygon-1.0.1.tgz#d59b64e8fee41c49458aac82b56718c5957b2af7"
+
 punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
@@ -363,6 +394,30 @@ request@^2.44.0:
     tunnel-agent "^0.6.0"
     uuid "^3.0.0"
 
+robust-orientation@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.npmjs.org/robust-orientation/-/robust-orientation-1.1.3.tgz#daff5b00d3be4e60722f0e9c0156ef967f1c2049"
+  dependencies:
+    robust-scale "^1.0.2"
+    robust-subtract "^1.0.0"
+    robust-sum "^1.0.0"
+    two-product "^1.0.2"
+
+robust-scale@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/robust-scale/-/robust-scale-1.0.2.tgz#775132ed09542d028e58b2cc79c06290bcf78c32"
+  dependencies:
+    two-product "^1.0.2"
+    two-sum "^1.0.0"
+
+robust-subtract@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/robust-subtract/-/robust-subtract-1.0.0.tgz#e0b164e1ed8ba4e3a5dda45a12038348dbed3e9a"
+
+robust-sum@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/robust-sum/-/robust-sum-1.0.0.tgz#16646e525292b4d25d82757a286955e0bbfa53d9"
+
 safe-buffer@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
@@ -378,6 +433,14 @@ save-pixels@^2.3.4:
     ndarray-ops "^1.2.2"
     pngjs-nozlib "^1.0.0"
     through "^2.3.4"
+
+slab-decomposition@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/slab-decomposition/-/slab-decomposition-1.0.2.tgz#1ded56754d408b10739f145103dfc61807f65134"
+  dependencies:
+    binary-search-bounds "^1.0.0"
+    functional-red-black-tree "^1.0.0"
+    robust-orientation "^1.1.3"
 
 sntp@1.x.x:
   version "1.0.9"
@@ -427,6 +490,14 @@ tunnel-agent@^0.6.0:
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
+
+two-product@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/two-product/-/two-product-1.0.2.tgz#67d95d4b257a921e2cb4bd7af9511f9088522eaa"
+
+two-sum@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/two-sum/-/two-sum-1.0.0.tgz#31d3f32239e4f731eca9df9155e2b297f008ab64"
 
 uniq@^1.0.0:
   version "1.0.1"

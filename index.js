@@ -31,6 +31,7 @@ module.exports = function(img, size) {
     polys = updatePolys(polys, points);
     var start = now();
     var outlier = polys.slice(0, 10)
+      .filter(p => p.getLength() > 100)
       .map(p => p.getOutlier(points))
       .reduce((m, p) => m.d > p.d ? m : p).p;
     if (outlier === undefined) break;

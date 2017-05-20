@@ -18,10 +18,10 @@ module.exports = function(img, size) {
   while (numTris < size) {
     var start = now();
     polys = updatePolys(polys, points); // this returns a sorted list of polygons
-    var outlier = polys.slice(0, 10) // only work with the top ten
-      .filter(p => p.getLength() > 100) // make sure they are big enough
+    var outlier = polys.filter(p => p.getLength() > 100) // make sure they are big enough
+      .slice(0, 10) // only work with the top ten
       .map(p => p.getOutlier(points)) // get each ones outlier point
-      .reduce((m, p) => m.d > p.d ? m : p).p; // find the best point and get it
+      .reduce((m, p) => m.d > p.d ? m : p, {}).p; // find the best point and get it
     if (outlier === undefined) break;
     points.push([outlier.x, outlier.y]);
     numTris = polys.length;

@@ -17,16 +17,29 @@ module.exports = function(img, size) {
   var numTris = polys.length;
   while (numTris < size) {
     var start = now();
-    polys = updatePolys(polys, points); // this returns a sorted list of polygons
+    var stats = { created: 0 };
+    polys = updatePolys(polys, points, stats); // this returns a sorted list of polygons
     var outlier = polys.filter(p => p.getLength() > 100) // make sure they are big enough
       .slice(0, 10) // only work with the top ten
       .map(p => p.getOutlier(points)) // get each ones outlier point
       .reduce((m, p) => m.d > p.d ? m : p, {}).p; // find the best point and get it
-    if (outlier === undefined) break;
+    if (outlier === undefined) {
+      console.log('cannot find next point. stopping...');
+      console.log(stats);
+      break;
+    }
     points.push([outlier.x, outlier.y]);
     numTris = polys.length;
     var total = now() - start;
-    console.log('num tris', polys.length, 'time', total.toFixed(4));
+    if (total > 100) {
+      var msg = [
+        '#tris: '+polys.length,
+        'time: '+total.toFixed(4),
+        'new: '+stats.created,
+        'per: '+((total/stats.created).toFixed(4))
+      ].join('\t');
+      console.log(msg);
+    }
   }
   
   // TODO: Merge like and touching polygons

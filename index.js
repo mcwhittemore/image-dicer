@@ -21,15 +21,8 @@ module.exports = function(img, size) {
     var start = now();
     var stats = { created: 0 };
     polys = updatePolys(polys, points, stats); // this returns a sorted list of polygons
-    var outlier = polys.filter(p => p.getScore() > 0) // make sure they are big enough
-      .slice(0, 10) // only work with the top ten
-      .map(p => p.getOutlier(points)) // get each ones outlier point
-      .reduce((m, p) => m.d > p.d ? m : p, {}).p; // find the best point and get it
-    if (outlier === undefined) {
-      console.log('cannot find next point. stopping...');
-      console.log(stats);
-      break;
-    }
+
+    var outlier = polys[0].getOutlier(points).p;
     points.push([outlier.x, outlier.y]);
     numTris = polys.length;
     numLeft = polys.filter(p => p.getScore() > 0).length;

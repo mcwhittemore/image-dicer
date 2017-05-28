@@ -3,7 +3,8 @@ var now = require('performance-now');
 var makeTriangles = require('./lib/make-triangles');
 var updateTriangles = require('./lib/update-triangles');
 
-module.exports = function(img, maxTris) {
+module.exports = function(img, opts) {
+  opts.maxTris = opts.maxTris || 5000;
   // SETUP THE POINTS AND POLYGONS
   var points = [
     [0,0],
@@ -18,7 +19,7 @@ module.exports = function(img, maxTris) {
   var next = 0;
   // make triangles as long as we're under the maxTris
   // add there are triangles left to split
-  while (numTris < maxTris && numLeft > 0) {
+  while (numTris < opts.maxTris && numLeft > 0) {
     var start = now();
     var stats = { created: 0 };
     triangles = updateTriangles(triangles, points, stats); // this returns a sorted list of polygons

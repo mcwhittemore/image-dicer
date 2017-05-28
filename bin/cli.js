@@ -7,12 +7,14 @@ var tool = require('..');
 
 var input = path.resolve(process.argv[2]);
 var output = path.resolve(process.argv[3]);
-var maxDistance = parseInt(process.argv[4]);
+var maxTris = parseInt(process.argv[4]);
 
 runner().catch(err => { console.log(err); });
 
 async function runner() {
   var img = await open(input);
-  var out = tool(img, maxDistance);
+  var out = tool(img, {
+    maxTris
+  });
   await save(out, output);
 }

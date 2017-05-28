@@ -22,7 +22,7 @@ module.exports = function(img, size) {
     var stats = { created: 0 };
     polys = updatePolys(polys, points, stats); // this returns a sorted list of polygons
 
-    var outlier = polys[0].getOutlier(points).p;
+    var outlier = polys[0].getOutlier(points);
     points.push([outlier.x, outlier.y]);
     numTris = polys.length;
     numLeft = polys.filter(p => p.getScore() > 0).length;

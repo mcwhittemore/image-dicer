@@ -9,12 +9,15 @@ var input = path.resolve(process.argv[2]);
 var output = path.resolve(process.argv[3]);
 var maxTris = parseInt(process.argv[4]);
 
+var hooks = {};
+
 runner().catch(err => { console.log(err); });
 
 async function runner() {
   var img = await open(input);
   var out = tool(img, {
-    maxTris
+    maxTris,
+    hooks
   });
   await save(out, output);
 }

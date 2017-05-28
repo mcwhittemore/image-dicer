@@ -2,9 +2,11 @@ var now = require('performance-now');
 
 var makeTriangles = require('./lib/make-triangles');
 var updateTriangles = require('./lib/update-triangles');
+var createPolygon = require('./lib/polygon');
 
 module.exports = function(img, opts) {
   opts.maxTris = opts.maxTris || 5000;
+  var polygon = createPolygon(opts.hooks || {});
   // SETUP THE POINTS AND POLYGONS
   var points = [
     [0,0],
@@ -12,7 +14,7 @@ module.exports = function(img, opts) {
     [img.shape[0]-1, img.shape[1]-1],
     [0, img.shape[1]-1]
   ];
-  var triangles = makeTriangles(points, img);
+  var triangles = makeTriangles(points, img, polygon);
   
   var numTris = triangles.length;
   var numLeft = 1;
@@ -22,7 +24,7 @@ module.exports = function(img, opts) {
   while (numTris < opts.maxTris && numLeft > 0) {
     var start = now();
     var stats = { created: 0 };
-    triangles = updateTriangles(triangles, points, stats); // this returns a sorted list of polygons
+    triangles = updateTriangles(triangles, points, polygon, stats); // this returns a sorted list of polygons
 
     var outlier = triangles[0].getOutlier(points);
     points.push([outlier.x, outlier.y]);

@@ -17,7 +17,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "default": "node bin/cli.js examples/input.jpg examples/default.jpg"
   },
   "repository": {
     "type": "git",

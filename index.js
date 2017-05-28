@@ -1,9 +1,9 @@
 var now = require('performance-now');
 
-var makePolys = require('./lib/make-polys');
-var updatePolys = require('./lib/update-polys');
+var makeTriangles = require('./lib/make-triangles');
+var updateTriangles = require('./lib/update-triangles');
 
-module.exports = function(img, size) {
+module.exports = function(img, maxTris) {
   // SETUP THE POINTS AND POLYGONS
   var points = [
     [0,0],
@@ -11,27 +11,28 @@ module.exports = function(img, size) {
     [img.shape[0]-1, img.shape[1]-1],
     [0, img.shape[1]-1]
   ];
-  var polys = makePolys(points, img);
+  var triangles = makeTriangles(points, img);
   
-  // ADD POINTS UNTIL WE HAVE THE RIGHT NUMBER OF POLYGONS
-  var numTris = polys.length;
+  var numTris = triangles.length;
   var numLeft = 1;
   var next = 0;
-  while (numTris < size && numLeft > 0) {
+  // make triangles as long as we're under the maxTris
+  // add there are triangles left to split
+  while (numTris < maxTris && numLeft > 0) {
     var start = now();
     var stats = { created: 0 };
-    polys = updatePolys(polys, points, stats); // this returns a sorted list of polygons
+    triangles = updateTriangles(triangles, points, stats); // this returns a sorted list of polygons
 
-    var outlier = polys[0].getOutlier(points);
+    var outlier = triangles[0].getOutlier(points);
     points.push([outlier.x, outlier.y]);
-    numTris = polys.length;
-    numLeft = polys.filter(p => p.getScore() > 0).length;
+    numTris = triangles.length;
+    numLeft = triangles.filter(p => p.getScore() > 0).length;
 
     var total = now() - start;
     if (numTris > next) {
       next += 100;
       var msg = [
-        '#tris: '+polys.length,
+        '#triangles: '+triangles.length,
         'time: '+total.toFixed(4),
         'new: '+stats.created,
         'per: '+((total/stats.created).toFixed(4)),
@@ -44,7 +45,7 @@ module.exports = function(img, size) {
   // TODO: Merge like and touching polygons
 
   // PAINT THE POLYGONS
-  polys.forEach(p => {
+  triangles.forEach(p => {
     p.paint(p.getAvg());
     for (var i=0; i<p.length; i++) {
       var pix = p.data[i];

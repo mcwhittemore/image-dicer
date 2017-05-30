@@ -26,7 +26,7 @@ module.exports = function(img, opts) {
     var stats = { created: 0 };
     triangles = updateTriangles(triangles, points, polygon, stats); // this returns a sorted list of polygons
 
-    var outlier = triangles[0].getOutlier(points);
+    var outlier = triangles[0].getOutlier();
     points.push([outlier.x, outlier.y]);
     numTris = triangles.length;
     numLeft = triangles.filter(p => p.getScore() > 0).length;
@@ -46,6 +46,8 @@ module.exports = function(img, opts) {
   }
   
   // TODO: Merge like and touching polygons
+
+  if (opts.returnTriangles) return triangles.map(p => p.edge);
 
   // PAINT THE POLYGONS
   triangles.forEach(p => {

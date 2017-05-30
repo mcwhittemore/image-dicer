@@ -18,7 +18,9 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "default": "node bin/cli.js examples/input.jpg examples/default.jpg"
+    "forJson": "node bin/cli.js --input examples/input.jpg --output examples/triangles.json --json true",
+    "default": "node bin/cli.js --input examples/input.jpg --output examples/default.jpg",
+    "withHooks": "node bin/cli --input examples/input.jpg --output examples/with-hooks.jpg --score examples/hooks/score.js --outlier examples/hooks/outlier.js"
   },
   "repository": {
     "type": "git",

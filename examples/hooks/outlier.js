@@ -12,12 +12,5 @@ module.exports = function(data, avg) {
     }
   }
 
-  if (idx === -1) {
-    console.log(avg, data.length);
-    throw new Error('Really?');
-  }
-
-  console.log(idx);
   return data[idx];
-
-}
+};

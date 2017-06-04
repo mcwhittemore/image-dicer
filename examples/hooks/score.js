@@ -1,7 +1,6 @@
 module.exports = function(data) {
   var length = data.length;
-  console.log('score len', length);
-  if (length === 0) return 0;
+  if (length <= 200) return 0;
   var s = {r:1,g:1,b:1};
   var v = {
     r: data[0].r,

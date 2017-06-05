@@ -22,14 +22,22 @@
     "save-pixels": "^2.3.4"
   },
   "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mcwhittemore/triangulate.git"
-  },
   "author": "Matthew Chase Whittemore",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mcwhittemore/triangulate/issues"
+  "directories": {
+    "example": "examples"
   },
-  "homepage": "https://github.com/mcwhittemore/triangulate#readme"
+  "keywords": [
+    "ndarray",
+    "image",
+    "triangles"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcwhittemore/image-dicer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mcwhittemore/image-dicer/issues"
+  },
+  "homepage": "https://github.com/mcwhittemore/image-dicer#readme"
 }

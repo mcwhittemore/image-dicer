@@ -13,6 +13,7 @@ var args = {
   output: REQUIRED,
   json: null,
   maxTris: null,
+  log: null,
   score: null,
   outlier: null
 };
@@ -32,7 +33,8 @@ Object.keys(args).forEach(key => {
 });
 
 if (args.maxTris) args.maxTris = parseInt(args.maxTris);
-args.json = args.json === 'true';
+if (args.log) args.log = parseInt(args.log);
+args.json = args.json !== 'false';
 
 var hooks = ['score', 'outlier'].reduce((m, k) => {
   if (args[k]) {
@@ -54,7 +56,8 @@ async function runner() {
   var out = tool(img, {
     maxTris: args.maxTris,
     hooks,
-    returnTriangles: args.json
+    returnJSON: args.json,
+    log: args.log
   });
   if (args.json) return fs.writeFileSync(args.output, JSON.stringify(out, null, 2));
   await save(out, args.output);

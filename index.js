@@ -5,7 +5,10 @@ var updateTriangles = require('./lib/update-triangles');
 var createPolygon = require('./lib/polygon');
 
 module.exports = function(img, opts) {
+  opts = opts || {};
+  opts.log = opts.log || -1;
   opts.maxTris = opts.maxTris || 5000;
+
   var polygon = createPolygon(opts.hooks || {});
   // SETUP THE POINTS AND POLYGONS
   var points = [
@@ -18,12 +21,13 @@ module.exports = function(img, opts) {
   
   var numTris = triangles.length;
   var numLeft = 1;
-  var next = 0;
   // make triangles as long as we're under the maxTris
   // add there are triangles left to split
+  var itCount = 0;
+  var nextLog = opts.log;
+  var stats = { created: 0, start: now() };
   while (numTris < opts.maxTris && numLeft > 0) {
-    var start = now();
-    var stats = { created: 0 };
+    itCount++;
     triangles = updateTriangles(triangles, points, polygon, stats); // this returns a sorted list of polygons
 
     var outlier = triangles[0].getOutlier(); 
@@ -31,23 +35,25 @@ module.exports = function(img, opts) {
     numTris = triangles.length;
     numLeft = triangles.filter(p => p.getScore() > 0).length;
 
-    var total = now() - start;
-    if (numTris > next) {
-      next += 100;
+    if (opts.log >= 0 && itCount === nextLog) {
+      nextLog += opts.log;
+      var total = now() - stats.start;
       var msg = [
-        '#triangles: '+triangles.length,
-        'time: '+total.toFixed(4),
+        'it: '+itCount,
+        '#tris: '+triangles.length,
+        'time: '+total.toFixed(2),
         'new: '+stats.created,
-        'per: '+((total/stats.created).toFixed(4)),
+        'per: '+((total/stats.created).toFixed(2)),
         'left: '+numLeft
       ].join('\t');
       console.log(msg);
+      stats = { created: 0, start: now() };
     }
   }
   
   // TODO: Merge like and touching polygons
 
-  if (opts.returnTriangles) return triangles.map(p => p.edge);
+  if (opts.returnJSON) return triangles.map(p => p.edge);
 
   // PAINT THE POLYGONS
   triangles.forEach(p => {

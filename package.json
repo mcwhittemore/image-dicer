@@ -1,4 +1,17 @@
 {
+  "name": "image-dicer",
+  "description": "Dice a photo into many triangles",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "defaultJSON": "node bin/cli.js --input examples/input.jpg --output examples/default.json --json true",
+    "defaultImg": "node bin/cli.js --input examples/input.jpg --output examples/default.jpg --json false",
+    "withHooks": "node bin/cli --input examples/input.jpg --output examples/with-hooks.jpg --score examples/hooks/score.js --outlier examples/hooks/outlier.js --json false"
+  },
+  "bin": {
+    "image-dicer": "bin/cli.js"
+  },
   "dependencies": {
     "color": "^1.0.3",
     "delaunator": "^1.0.0",
@@ -8,20 +21,7 @@
     "point-in-polygon": "^1.0.1",
     "save-pixels": "^2.3.4"
   },
-  "name": "triangulate",
-  "description": "A simple tool to pixelate a photo in triangles rather than squares.",
-  "version": "1.0.0",
-  "main": "index.js",
-  "bin": {
-    "triangulate": "bin/cli.js"
-  },
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "forJson": "node bin/cli.js --input examples/input.jpg --output examples/triangles.json --json true",
-    "default": "node bin/cli.js --input examples/input.jpg --output examples/default.jpg",
-    "withHooks": "node bin/cli --input examples/input.jpg --output examples/with-hooks.jpg --score examples/hooks/score.js --outlier examples/hooks/outlier.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mcwhittemore/triangulate.git"
